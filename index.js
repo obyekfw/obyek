@@ -1,8 +1,9 @@
 
 const route = require("./lib/route.js")
-const {defaultLogger,defaultResponse} = require("./lib/default.js")
+const {defaultLogger,defaultResponse,winston} = require("./lib/default.js")
 const path = require("path")
 const cors = require("cors")
+const helmet = require("helmet")
 function config({
   logDirName="log",
   errorMiddleware=(err,req,res,next)=>{
@@ -43,8 +44,9 @@ if(!global.__obyek__.config){
 }
 
 
-const exp={
+const obyek={
+  winston,helmet,
   route,cors,config,logger:defaultLogger()
 }
 
-module.exports=exp
+module.exports=obyek
