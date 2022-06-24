@@ -1,8 +1,7 @@
  Note: this project is experimental
 ___
-# Documentation
+# Docs
 
-### overview
 obyek is a framework that wraps expressjs and adds an OOP paradigm for route writing.
 ___
 ### installation
