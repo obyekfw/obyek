@@ -1,12 +1,12 @@
 {
   "name": "obyek",
   "version": "0.0.1",
-  "description": "",
+  "description": "this is experimental framework",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Rian Wahid Prayogo",
+  "author": "Rian-wahid",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
