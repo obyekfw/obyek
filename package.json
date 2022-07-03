@@ -1,10 +1,10 @@
 {
   "name": "obyek",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "this is experimental framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"no test command\""
+    "test": "node node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
@@ -14,17 +14,19 @@
     "http",
     "express"
   ],
-  "author": "Rian-wahid",
+  "author": "Rian Wahid Prayogo",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
     "winston": "^3.7.2",
-    "helmet":"^5.1.0"
+    "helmet": "^5.1.0"
   },
   "bugs": {
     "url": "https://github.com/Rian-wahid/obyek/issues"
   },
-  "homepage": "https://github.com/Rian-wahid/obyek#readme"
+  "homepage": "https://github.com/Rian-wahid/obyek#readme",
+  "devDependencies": {
+    "jest":"^28.1.2"
+  }
 }
-
