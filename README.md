@@ -16,11 +16,15 @@ new App()
 ```
 ___
 ### features
+
 <ul>
   <li>Scalable</li>
   <li>Express libraries compatible</li>
 </ul>
+
+___
 ### installation
+
 ```
 npm i obyek
 ```
@@ -44,7 +48,7 @@ new App()
 ```
 </details>
 
-___
+
 <details><summary>sortcuts</summary>
 ```javascript
 
@@ -77,7 +81,7 @@ class App extends route("/"){
 new App()
 ```
 </details>
-___
+
 
 
 <details><summary>add child route</summary>
@@ -109,7 +113,7 @@ class App extends route("/") {
 new App()
 ```
 </details>
-___
+
 <details><summary>add middleware</summary>
 
 ```javascript
@@ -142,7 +146,7 @@ class App extends route("/") {
 new App()
 ```
 </details>
-___
+
 <details><summary>logger</summary>
 
 ```javascript
@@ -150,9 +154,10 @@ const {logger}=require("obyek")
 
 logger.info("hello")
 ```
+
 </details>
 
-___
+
 <details><summary>config</summary>
 
 ```javascript
@@ -186,6 +191,7 @@ class App extends route("/"){
 
 new App().$listen(3000)
 ```
+
 </details>
 
 ___
