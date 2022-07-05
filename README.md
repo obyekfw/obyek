@@ -32,6 +32,7 @@ ___
 ### usage
 
 <details><summary>hello world</summary>
+
 ```javascript
 
 const {route}=require("obyek")
@@ -46,10 +47,12 @@ class App extends route("/"){
 }
 new App()
 ```
+
 </details>
 
 
 <details><summary>sortcuts</summary>
+
 ```javascript
 
 const {route}=require("obyek")
@@ -80,11 +83,13 @@ class App extends route("/"){
 }
 new App()
 ```
+
 </details>
 
 
 
 <details><summary>add child route</summary>
+
 ```javascript
 const {route}=require("obyek")
 
@@ -112,6 +117,7 @@ class App extends route("/") {
 }
 new App()
 ```
+
 </details>
 
 <details><summary>add middleware</summary>
@@ -145,6 +151,7 @@ class App extends route("/") {
 }
 new App()
 ```
+
 </details>
 
 <details><summary>logger</summary>

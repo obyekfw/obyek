@@ -1,6 +1,6 @@
 {
   "name": "obyek",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "description": "scalable web framework",
   "main": "index.js",
   "scripts": {
