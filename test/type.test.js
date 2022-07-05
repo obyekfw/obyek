@@ -3,128 +3,31 @@
 const {type} = require("obyek")
 
 test("primitive types",()=>{
-let  l= type.strongType({
-    prop1:{
-      type:Number,
-      value:1
-    },
-    prop2:{
-      type:String
-    },
-    prop3:{
-      type:Boolean,
-    }
-    
-  })
-  l.prop2="a string"
-  l.prop3=false
+  //scope
+  const S= type.strongly()
+  S.name="Rian"
+  S.age = 18
+  S.isMarried=false
+  
   try{
-    l.prop1="a string"
-    
-    throw new Error("failed to validate")
-    
-  }catch(e){
-    expect(l.prop1).toBe(1)
-    if(e.name!=="StrongTypeError"){
-      throw e
-    }
-  }
+    S.name=18
+   }catch(e){}
+   try{
+    S.age="Rian"
+   }catch(e){}
+   try{
+    S.isMarried="true"
+   }catch(e){}
+  expect(S.name).toBe("Rian")
+  expect(S.age).toBe(18)
+  expect(S.isMarried).toBe(false)
+  S.name="Rian Wahid"
+  S.age = 25
+  S.isMarried=true
+  expect(S.name).toBe("Rian Wahid")
+  expect(S.age).toBe(25)
+  expect(S.isMarried).toBe(true)
   
-  try {
-    l.prop1 = {}
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop1).toBe(1)
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop1 = true
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop1).toBe(1)
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop2 = 1
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop2).toBe("a string")
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop2 = {}
-  
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop2).toBe("a string")
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop2 = true
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop2).toBe("a string")
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop3 = "a string"
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop3).toBe(false)
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop3 = {}
-    
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-    expect(l.prop3).toBe(false)
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
-  
-  try {
-    l.prop3 = 1
-  
-    throw new Error("failed to validate")
-  
-  } catch (e) {
-     expect(l.prop3).toBe(false)
-    if (e.name !== "StrongTypeError") {
-      throw e
-    }
-  }
 })
 
 test("array types", () => {

@@ -15,7 +15,7 @@ const cors = require("cors")
 const helmet = require("helmet")
 const type = require("./lib/type.js")
 
-
+//config function for override default config
 function config({
   logDirName="log",
   errorMiddleware=defaultErrorHandler,
@@ -33,6 +33,9 @@ function config({
   .config.notFoundMiddleware=notFoundMiddleware
   
 }
+
+
+//define global config
 if(!global.__obyek__){
   Object.defineProperty(global,"__obyek__",{
     value:{}

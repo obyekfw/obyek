@@ -7,6 +7,9 @@ function request({hostname="localhost",port,path="/",method="GET",headers={},bod
       hostname,port,path,method,headers
     },(res)=>{
       let body=""
+      res.on("error",()=>{
+        reject("response error")
+      })
       res.on("data",(c)=>{
         body+=c
       })
@@ -19,9 +22,14 @@ function request({hostname="localhost",port,path="/",method="GET",headers={},bod
         })
       })
     })
+    req.on("error",()=>{
+      reject("request error")
+    })
     req.write(body)
     req.end()
+    
   })
+  
 }
 
 async function listen(app, initalPort) {
@@ -34,4 +42,6 @@ async function listen(app, initalPort) {
     return listen(app, initalPort)
   }
 }
+
+
 module.exports = {listen,request}

@@ -1,21 +1,21 @@
 {
   "name": "obyek",
-  "version": "0.0.7",
-  "description": "this is experimental framework",
+  "version": "0.0.8",
+  "description": "scalable web framework",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/.bin/jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Rian-wahid/obyek.git"
+    "url": "git+https://github.com/obyekfw/obyek.git"
   },
   "keywords": [
     "http",
     "express"
   ],
   "author": "Rian Wahid Prayogo",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.1",
@@ -23,10 +23,11 @@
     "helmet": "^5.1.0"
   },
   "bugs": {
-    "url": "https://github.com/Rian-wahid/obyek/issues"
+    "url": "https://github.com/obyekfw/obyek/issues"
   },
-  "homepage": "https://github.com/Rian-wahid/obyek#readme",
+  "homepage": "https://github.com/obyekfw/obyek#readme",
   "devDependencies": {
     "jest":"^28.1.2"
-  }
+  },
+  "contributors":["Rian-wahid"]
 }

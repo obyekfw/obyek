@@ -1,17 +1,5 @@
- Note: this project is experimental
-___
-# Docs
+because it is still in the development and refinement stage. don't use this for production
 
-obyek is a framework that wraps expressjs and adds an OOP paradigm for route writing.
-___
-### installation
-```
-npm i obyek
-```
-___
-### usage
-
-hello world
 ```javascript
 
 const {route}=require("obyek")
@@ -27,7 +15,19 @@ class App extends route("/"){
 new App()
 ```
 ___
-sending json
+### features
+<ul>
+  <li>Scalable</li>
+  <li>Express libraries compatible</li>
+</ul>
+### installation
+```
+npm i obyek
+```
+___
+### usage
+
+<details><summary>hello world</summary>
 ```javascript
 
 const {route}=require("obyek")
@@ -37,14 +37,50 @@ class App extends route("/"){
     this.$listen(3000)
   }
   get(){
+    this.$send("Hello world")
+  }
+}
+new App()
+```
+</details>
+
+___
+<details><summary>sortcuts</summary>
+```javascript
+
+const {route}=require("obyek")
+class App extends route("/"){
+  constructor(){
+    super()
+    this.$listen(3000)
+  }
+  get(){
+    //this.$req -> request
+    //this.$res -> response
+    
+    
+    //this.$send -> response.send
+    //this.$json -> response.json
+    //this.$status -> response.status
+    //this.$write -> response.write
+    //this.$end -> response.end
+    //this.$download -> response.download
+    //this.$cookie -> response.cookie
+    
+    //this.$headers -> request.headers
+    //this.$body -> request.body
+    //this.$params -> request.params
+    //this.$query -> this.query
     this.$json({message:"Hello"})
   }
 }
 new App()
 ```
-
+</details>
 ___
-add child route
+
+
+<details><summary>add child route</summary>
 ```javascript
 const {route}=require("obyek")
 
@@ -72,8 +108,9 @@ class App extends route("/") {
 }
 new App()
 ```
+</details>
 ___
-add middleware
+<details><summary>add middleware</summary>
 
 ```javascript
 const {route}=require("obyek")
@@ -104,42 +141,19 @@ class App extends route("/") {
 }
 new App()
 ```
+</details>
 ___
-logger
+<details><summary>logger</summary>
 
 ```javascript
-const {route,logger}=require("obyek")
-class App extends route("/"){
-  constructor(){
-    super()
-    this.$listen(3000)
-  }
-  get(){
-    logger.info("request")
-    this.$send("Hello world")
-  }
-}
-new App()
+const {logger}=require("obyek")
+
+logger.info("hello")
 ```
+</details>
 
 ___
-cors
-```javascript
-const {route,cors}=require("obyek")
-class App extends route("/"){
-  constructor(){
-    super()
-    this.$app.use(cors())
-    this.$listen(3000)
-  }
-  get(){
-    this.$send("Hello world")
-  }
-}
-new App()
-```
-___
-config
+<details><summary>config</summary>
 
 ```javascript
 const {route,config}=require("obyek")
@@ -172,3 +186,9 @@ class App extends route("/"){
 
 new App().$listen(3000)
 ```
+</details>
+
+___
+### Contributing
+
+The obyek project welcomes all constructive contributions. Contributions take many forms, from code for bug fixes and enhancements, to additions and fixes to documentation, additional tests, triaging incoming pull requests and issues
