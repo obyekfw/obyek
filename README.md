@@ -6,10 +6,10 @@ const {route}=require("obyek")
 class App extends route("/"){
   constructor(){
     super()
-    this.$listen(3000)
+    this.listen(3000)
   }
   get(){
-    this.$send("Hello world")
+    this.send("Hello world")
   }
 }
 new App()
