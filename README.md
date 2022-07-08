@@ -143,13 +143,14 @@ class App extends route("/") {
     super()
     
     //for all 
-    this.app.all(this.$path,(req,res,next)=>{
+    //relative to currwnt route path
+    this.app.all("/",(req,res,next)=>{
       console.info("all")
       next()
     })
     
     //for post
-    this.app.post(this.$path,(req,res,next)=>{
+    this.app.post("/",(req,res,next)=>{
       console.info("post")
       next()
     })
