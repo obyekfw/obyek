@@ -39,10 +39,10 @@ const {route}=require("obyek")
 class App extends route("/"){
   constructor(){
     super()
-    this.$listen(3000)
+    this.listen(3000)
   }
   get(){
-    this.$send("Hello world")
+    this.send("Hello world")
   }
 }
 new App()
@@ -64,7 +64,8 @@ class App extends route("/"){
   get(){
     //this.$req -> request
     //this.$res -> response
-    
+    //this.req -> request
+    //this.res -> response
     
     //this.$send -> response.send
     //this.$json -> response.json
@@ -74,11 +75,24 @@ class App extends route("/"){
     //this.$download -> response.download
     //this.$cookie -> response.cookie
     
+    //this.send -> response.send
+    //this.json -> response.json
+    //this.status -> response.status
+    //this.write -> response.write
+    //this.end -> response.end
+    //this.download -> response.download
+    //this.cookie -> response.cookie
+    
     //this.$headers -> request.headers
     //this.$body -> request.body
     //this.$params -> request.params
     //this.$query -> this.query
-    this.$json({message:"Hello"})
+    
+    //this.headers -> request.headers
+    //this.body -> request.body
+    //this.params -> request.params
+    //this.query -> this.query
+    this.json({message:"Hello"})
   }
 }
 new App()
@@ -95,24 +109,24 @@ const {route}=require("obyek")
 
 class Foo extends route("/foo"){
   get(){
-    this.$send("Foo")
+    this.send("Foo")
   }
 }
 
 class Bar extends route("/bar") {
   get() {
-    this.$send("Bar")
+    this.send("Bar")
   }
 }
 class App extends route("/") {
   constructor() {
     super()
-    this.$childRoute(new Foo())
-    .$childRoute(new Bar())
-    .$listen(3000)
+    this.childRoute(new Foo())
+    .childRoute(new Bar())
+    .listen(3000)
   }
   get() {
-    this.$send("Hello world")
+    this.send("Hello world")
   }
 }
 new App()
@@ -129,24 +143,24 @@ class App extends route("/") {
     super()
     
     //for all 
-    this.$app.all(this.$path,(req,res,next)=>{
+    this.app.all(this.$path,(req,res,next)=>{
       console.info("all")
       next()
     })
     
     //for post
-    this.$app.post(this.$path,(req,res,next)=>{
+    this.app.post(this.$path,(req,res,next)=>{
       console.info("post")
       next()
     })
-    this.$listen(3000)
+    this.listen(3000)
     
   }
   get() {
-    this.$send("Hello world")
+    this.send("Hello world")
   }
   post(){
-    this.$json(this.$req.body)
+    this.json(this.$req.body)
   }
 }
 new App()
@@ -196,7 +210,7 @@ class App extends route("/"){
   }
 }
 
-new App().$listen(3000)
+new App().listen(3000)
 ```
 
 </details>
