@@ -1,6 +1,6 @@
 "use strict";
 
-const {route} = require('obyek')
+const {route} = require("../index.js")
 
 const {request,listen} = require("./test-util.js")
 
@@ -12,32 +12,32 @@ test("path params test",async ()=>{
   class ParamsEnum extends route("/:p(a|b)") {
     get() {
     
-      this.$send(this.$params.p)
+      this.send(this.$params.p)
     }
   }
   
   class OptionalParams extends route("/opt/:param?"){
     get(){
-      this.$send(this.$params.param)
+      this.send(this.$params.param)
     }
   }
   class Params extends route('/:param') {
     constructor(){
       super()
       
-      this.$childRoute(new ParamsEnum())
+      this.childRoute(new ParamsEnum())
     }
     get() {
     
-      this.$send(this.$params.param||"null")
+      this.send(this.$params.param||"null")
     }
   }
   
   class App extends route("/") {
     constructor() {
       super()
-      this.$childRoute(new OptionalParams())
-      this.$childRoute(new Params())
+      this.childRoute(new OptionalParams())
+      this.childRoute(new Params())
     
     }
   }
@@ -55,34 +55,37 @@ test("path params test",async ()=>{
  }catch(e){
    throw e
  }finally{
-  app.$stopServer()
+  app.stopServer()
  }
 })
 
 test("star pattern",async ()=>{
   class SingleStar extends route("*"){
     get(){
-      this.$send("single star")
+      this.send("single star")
     }
   }
   
   class EndStar extends route("/a*") {
     get() {
-      this.$send("end star")
+      this.send("end star")
     }
   }
   class MiddleStar extends route("/a*b") {
     get() {
-      this.$send("middle star")
+      this.send("middle star")
     }
   }
   class App extends route(){
     constructor(){
       super()
-      this.$childRoute(new MiddleStar())
-      this.$childRoute(new EndStar())
-      this.$childRoute(new SingleStar())
+      
+      this.childRoute(new MiddleStar())
+      this.childRoute(new EndStar())
+      this.childRoute(new SingleStar())
     }
+    
+    
   }
   let app = new App()
  let port= await listen(app,3000)
@@ -95,6 +98,6 @@ test("star pattern",async ()=>{
  }catch(e){
    throw e
  }finally{
-   app.$stopServer()
+   app.stopServer()
  }
 })

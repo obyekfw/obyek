@@ -1,3 +1,4 @@
+"use strict";
 const http = require("http")
 
 function request({hostname="localhost",port,path="/",method="GET",headers={},body=""}){
@@ -22,8 +23,8 @@ function request({hostname="localhost",port,path="/",method="GET",headers={},bod
         })
       })
     })
-    req.on("error",()=>{
-      reject("request error")
+    req.on("error",(e="request error")=>{
+      reject(e)
     })
     req.write(body)
     req.end()
@@ -34,7 +35,7 @@ function request({hostname="localhost",port,path="/",method="GET",headers={},bod
 
 async function listen(app, initalPort) {
   try {
-    app.$listen(initalPort)
+    app.listen(initalPort)
    
     return initalPort
   } catch (e) {

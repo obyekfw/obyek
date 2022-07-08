@@ -1,6 +1,6 @@
 "use strict";
 
-const {type} = require("obyek")
+const {type} = require("../index.js")
 
 test("primitive types",()=>{
   //scope
