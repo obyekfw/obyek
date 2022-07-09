@@ -34,7 +34,6 @@ test("json body",async ()=>{
     },
     body:JSON.stringify(body)
   })
-  
   expect(JSON.parse(response.body).foo).toBe(body.foo)
   }catch(e){
     throw e

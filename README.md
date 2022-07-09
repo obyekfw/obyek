@@ -209,6 +209,21 @@ class App extends route("/"){
   get(){
     throw new Error("error")
   }
+
+
+  //config method is called after listen method
+  config(cnfg){
+        //default
+        //set to false to disable middleware
+        cnfg.json={}
+        cnfg.cors = false
+        cnfg.helmet=false
+        cnfg.compression=false
+        cnfg.urlencoded={
+          extended:false
+        }
+        
+   }
 }
 
 new App().listen(3000)
