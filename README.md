@@ -142,14 +142,14 @@ class App extends route("/") {
   constructor() {
     super()
     
-    //for all 
-    //relative to currwnt route path
+    
+    //relative to current route path
     this.app.all("/",(req,res,next)=>{
       console.info("all")
       next()
     })
     
-    //for post
+    
     this.app.post("/",(req,res,next)=>{
       console.info("post")
       next()

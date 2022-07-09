@@ -13,12 +13,15 @@ get(){
 class App extends route("/"){
   constructor(){
     super()
+    
     this.childRoute(new Query())
   }
+  
 }
 
 test("query",async ()=>{
   let app = new App()
+  
   try{
     let port = await listen(app,3002)
     let response = await request({
