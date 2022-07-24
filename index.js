@@ -8,14 +8,6 @@ const {defaultLogger,
 } = require("./lib/default.js")
 const path = require("path")
 
-/**
- * for cors and helmet utils will be added soon
- */
-const cors = require("cors")
-const helmet = require("helmet")
-const type = require("./lib/type.js")
-
-//config function for override default config
 function config({
   logDirName="log",
   errorMiddleware=defaultErrorHandler,
@@ -34,8 +26,6 @@ function config({
   
 }
 
-
-//define global config
 if(!global.__obyek__){
   Object.defineProperty(global,"__obyek__",{
     value:{}
@@ -54,8 +44,107 @@ if(!global.__obyek__.config){
 
 
 const obyek={
-  winston,helmet,type,
-  route,cors,config,logger:defaultLogger()
+  winston,
+  route,
+  config,
 }
+let testRequest;
+let cors;
+let type;
+let helmet;
+let compression;
+let logger;
+let express;
+let cookieParser;
+let dotenv;
+
+Object.defineProperty(obyek, "dotenv", {
+  get: function() {
+    if (!dotenv) {
+      dotenv = require("dotenv")
+    }
+    return dotenv
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek, "cookieParser", {
+  get: function() {
+    if (!cookieParser) {
+      cookieParser = require("cookie-parser")
+    }
+    return cookieParser
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek, "express", {
+  get: function() {
+    if (!express) {
+      express = require("express")
+    }
+    return express
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek,"cors",{
+  get:function(){
+    if(!cors){
+      cors = require("cors")
+    }
+      return cors
+  },
+  enumerable: true
+})
+Object.defineProperty(obyek, "testRequest", {
+  get: function() {
+    if(!testRequest){
+     testRequest=require("./lib/test-request.js")
+    }
+    return testRequest
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek, "helmet", {
+  get: function() {
+      if(!helmet){
+        helmet = require("helmet")
+      }
+      return helmet
+  },
+  enumerable:true
+})
+
+Object.defineProperty(obyek, "type", {
+  get: function() {
+    if(!type){
+      type=require("./lib/type.js")
+    }
+    return type
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek, "compression", {
+  get: function() {
+    if (!compression) {
+     compression = require("compression")
+    }
+    return compression
+  },
+  enumerable: true
+})
+
+Object.defineProperty(obyek, "logger", {
+  get: function() {
+    if (!logger) {
+      logger = defaultLogger()
+    }
+    return logger
+  },
+  enumerable: true
+})
 
 module.exports=obyek

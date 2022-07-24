@@ -1,7 +1,7 @@
 {
   "name": "obyek",
-  "version": "0.1.5",
-  "description": "scalable web framework",
+  "version": "0.2.0",
+  "description": "web framework",
   "main": "index.js",
   "scripts": {
     "test": "node node_modules/.bin/jest",
@@ -13,7 +13,8 @@
   },
   "keywords": [
     "http",
-    "express"
+    "express",
+    "web"
   ],
   "author": "Rian Wahid Prayogo",
   "license": "MIT",
@@ -22,7 +23,10 @@
     "express": "^4.18.1",
     "winston": "^3.7.2",
     "helmet": "^5.1.0",
-    "compression":"^1.7.4"
+    "compression":"^1.7.4",
+    "supertest":"^6.2.4",
+    "cookie-parser":"^1.4.6",
+    "dotenv":"^16.0.1"
   },
   "bugs": {
     "url": "https://github.com/obyekfw/obyek/issues"
@@ -31,5 +35,8 @@
   "devDependencies": {
     "jest":"^28.1.2"
   },
-  "contributors":["Rian-wahid"]
+  "contributors":[{
+    "name":"Rian Wahid Prayogo",
+    "email":"r14n4r1e5@gmail.com"
+  }]
 }

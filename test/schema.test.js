@@ -2,7 +2,7 @@
 
 const {type} = require("../index.js")
 const {schema} = type
-test("schema valudation valid",()=>{
+test("schema validation valid",()=>{
  let check= schema({
     name:String,
     age:Number

@@ -1,8 +1,8 @@
 "use strict";
 
-const {route} = require("../index.js")
+const {route,testRequest} = require("../index.js")
 
-const {request,listen} = require("./test-util.js")
+
 
 
 
@@ -10,15 +10,15 @@ test("path params test",async ()=>{
   
   
   class ParamsEnum extends route("/:p(a|b)") {
-    get() {
+    get(req,res) {
     
-      this.send(this.$params.p)
+      res.send(req.params.param+req.params.p)
     }
   }
   
   class OptionalParams extends route("/opt/:param?"){
-    get(){
-      this.send(this.$params.param)
+    get(req,res){
+      res.send(req.params.param)
     }
   }
   class Params extends route('/:param') {
@@ -27,9 +27,9 @@ test("path params test",async ()=>{
       
       this.childRoute(new ParamsEnum())
     }
-    get() {
+    get(req,res) {
     
-      this.send(this.$params.param||"null")
+      res.send(req.params.param)
     }
   }
   
@@ -37,43 +37,39 @@ test("path params test",async ()=>{
     constructor() {
       super()
       this.childRoute(new OptionalParams())
-      this.childRoute(new Params())
+      .childRoute(new Params())
     
     }
   }
- let app = new App()
- const port = await listen(app,3000)
- try{
- expect((await request({path:"/",port})).status).toBe(404)
-  expect((await request({path:"/arg",port})).body).toBe("arg")
-  expect((await request({path:"/foo",port})).body).toBe("foo")
-  expect((await request({path:"/arg/a",port})).body).toBe("a")
-  expect((await request({path:"/arg/b",port})).body).toBe("b")
-  expect((await request({path:"/arg/c",port})).status).toBe(404)
-  expect((await request({path:"/opt/foo",port})).body).toBe("foo")
-    expect((await request({path:"/opt/",port})).status).toBe(200)
- }catch(e){
-   throw e
- }finally{
-  app.stopServer()
- }
+ let app = testRequest(new App())
+ 
+ 
+ expect((await app.get("/")).status).toBe(404)
+  expect((await app.get("/arg")).text).toBe("arg")
+  expect((await app.get("/foo")).text).toBe("foo")
+  expect((await app.get("/arg/a")).text).toBe("arga")
+  expect((await app.get("/arg/b")).text).toBe("argb")
+  expect((await app.get("/arg/c")).status).toBe(404)
+  expect((await app.get("/opt/foo")).text).toBe("foo")
+  expect((await app.get("/opt/")).status).toBe(200)
+ 
 })
 
 test("star pattern",async ()=>{
   class SingleStar extends route("*"){
-    get(){
-      this.send("single star")
+    get(req,res){
+      res.send("single star")
     }
   }
   
   class EndStar extends route("/a*") {
-    get() {
-      this.send("end star")
+    get(req,res) {
+      res.send("end star")
     }
   }
   class MiddleStar extends route("/a*b") {
-    get() {
-      this.send("middle star")
+    get(req,res) {
+      res.send("middle star")
     }
   }
   class App extends route(){
@@ -81,23 +77,18 @@ test("star pattern",async ()=>{
       super()
       
       this.childRoute(new MiddleStar())
-      this.childRoute(new EndStar())
-      this.childRoute(new SingleStar())
+      .childRoute(new EndStar())
+      .childRoute(new SingleStar())
     }
     
     
   }
-  let app = new App()
- let port= await listen(app,3000)
- try{
-   expect((await request({path:"/",port})).status).toBe(404)
-   expect((await request({path:"/cc",port})).body).toBe("single star")
-    expect((await request({path:"/aab",port})).body).toBe("middle star")
-   expect((await request({path:"/aa",port})).body).toBe("end star")
-   expect((await request({path:"/a",port})).body).toBe("end star")
- }catch(e){
-   throw e
- }finally{
-   app.stopServer()
- }
+  let app = testRequest(new App())
+ 
+   expect((await app.get("/")).status).toBe(404)
+   expect((await app.get("/cc")).text).toBe("single star")
+    expect((await app.get("/aab")).text).toBe("middle star")
+   expect((await app.get("/aa")).text).toBe("end star")
+   expect((await app.get("/a")).text).toBe("end star")
+ 
 })

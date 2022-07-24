@@ -1,4 +1,4 @@
-because it is still in the development and refinement stage. don't use this for production
+
 
 ```javascript
 
@@ -8,19 +8,16 @@ class App extends route("/"){
     super()
     this.listen(3000)
   }
-  get(){
-    this.send("Hello world")
+  get(req,res){
+    res.send("Hello world")
   }
 }
 new App()
 ```
-___
-### features
 
-<ul>
-  <li>Scalable</li>
-  <li>Express libraries compatible</li>
-</ul>
+
+this is a rather opinionated framework. but maybe it can't be called opinionated nor can it be called unopinionated. that's because some libraries for doing things that are usually installed separately are available by default. using the OOP paradigm to make grouping easier and more
+
 
 ___
 ### installation
@@ -41,8 +38,8 @@ class App extends route("/"){
     super()
     this.listen(3000)
   }
-  get(){
-    this.send("Hello world")
+  get(req,res){
+    res.send("Hello world")
   }
 }
 new App()
@@ -50,55 +47,6 @@ new App()
 
 </details>
 
-
-<details><summary>sortcuts</summary>
-
-```javascript
-
-const {route}=require("obyek")
-class App extends route("/"){
-  constructor(){
-    super()
-    this.$listen(3000)
-  }
-  get(){
-    //this.$req -> request
-    //this.$res -> response
-    //this.req -> request
-    //this.res -> response
-    
-    //this.$send -> response.send
-    //this.$json -> response.json
-    //this.$status -> response.status
-    //this.$write -> response.write
-    //this.$end -> response.end
-    //this.$download -> response.download
-    //this.$cookie -> response.cookie
-    
-    //this.send -> response.send
-    //this.json -> response.json
-    //this.status -> response.status
-    //this.write -> response.write
-    //this.end -> response.end
-    //this.download -> response.download
-    //this.cookie -> response.cookie
-    
-    //this.$headers -> request.headers
-    //this.$body -> request.body
-    //this.$params -> request.params
-    //this.$query -> this.query
-    
-    //this.headers -> request.headers
-    //this.body -> request.body
-    //this.params -> request.params
-    //this.query -> this.query
-    this.json({message:"Hello"})
-  }
-}
-new App()
-```
-
-</details>
 
 
 
@@ -108,14 +56,14 @@ new App()
 const {route}=require("obyek")
 
 class Foo extends route("/foo"){
-  get(){
-    this.send("Foo")
+  get(req,res){
+    res.send("Foo")
   }
 }
 
 class Bar extends route("/bar") {
-  get() {
-    this.send("Bar")
+  get(req,res) {
+    res.send("Bar")
   }
 }
 class App extends route("/") {
@@ -125,14 +73,16 @@ class App extends route("/") {
     .childRoute(new Bar())
     .listen(3000)
   }
-  get() {
-    this.send("Hello world")
+  get(req,res) {
+    res.send("Hello world")
   }
 }
 new App()
 ```
 
 </details>
+
+
 
 <details><summary>add middleware</summary>
 
@@ -157,11 +107,11 @@ class App extends route("/") {
     this.listen(3000)
     
   }
-  get() {
-    this.send("Hello world")
+  get(req,res) {
+    res.send("Hello world")
   }
-  post(){
-    this.json(this.$req.body)
+  post(req,res){
+    res.json(req.body)
   }
 }
 new App()
@@ -169,11 +119,13 @@ new App()
 
 </details>
 
+
+
 <details><summary>logger</summary>
 
 ```javascript
 const {logger}=require("obyek")
-
+//winston
 logger.info("hello")
 ```
 
@@ -199,6 +151,7 @@ config({
     })
   },
   errorMiddleware:(err,req,res,next)=>{
+        console.error(err)
         res.status(500)
         res.json({status:"error",message:"internal server error",
         error:{detail:err.stack}})
@@ -216,12 +169,14 @@ class App extends route("/"){
         //default
         //set to false to disable middleware
         cnfg.json={}
-        cnfg.cors = false
-        cnfg.helmet=false
-        cnfg.compression=false
+        cnfg.cors = false //{}
+        cnfg.helmet=false //{}
+        cnfg.compression=false //{}
         cnfg.urlencoded={
           extended:false
         }
+        cnfg.cookieParser=[] //[secret,options]
+        cnfg.static = false //[root,options]
         
    }
 }
@@ -231,6 +186,32 @@ new App().listen(3000)
 
 </details>
 
+
+<details>
+  <summary>unit test</summary>
+  
+  
+  ```javascript
+  const {route,testRequest} = require("obyek")
+  
+  class App extends route("/"){
+    get(req,res){
+      res.send("testing")
+    }
+  }
+  
+  //i assume you are using jest
+  test("example test",async ()=>{
+    expect((
+    await testRequest(new App())
+    .get("/")
+    ).text).toBe("testing")
+  })
+  
+  ```
+  
+  
+</details>
 ___
 ### Contributing
 

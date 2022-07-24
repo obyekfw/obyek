@@ -1,12 +1,11 @@
 "use strict";
 
-const {request,listen}= require("./test-util.js")
-const {route} = require("../index.js")
+const {route,testRequest} = require("../index.js")
 
 
 class Body extends route("/body"){
-  post(){
-    this.json(this.body)
+  post(req,res){
+    res.json(req.body)
   }
 }
 
@@ -22,22 +21,12 @@ test("json body",async ()=>{
   let body={
     foo:"bar"
   }
-  let app = new App()
-  try{
-  let port= await listen(app,3001)
-  let response = await request({
-    method:"POST",
-    path:"/body",
-    port,
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify(body)
-  })
-  expect(JSON.parse(response.body).foo).toBe(body.foo)
-  }catch(e){
-    throw e
-  }finally{
-    app.stopServer()
-  }
+  
+  let response = await testRequest(new App())
+  .post("/body")
+  .set("Content-Type","application/json")
+  .send(body)
+  
+  expect(response.body).toEqual(body)
+  
 })

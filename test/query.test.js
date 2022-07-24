@@ -1,12 +1,11 @@
 "use strict";
 
-const {request,listen}= require("./test-util.js")
-const {route} = require("../index.js")
+const {route,testRequest} = require("../index.js")
 
 
 class Query extends route("/query"){
-get(){
-    this.json(this.query)
+get(req,res){
+    res.json(req.query)
   }
 }
 
@@ -20,19 +19,13 @@ class App extends route("/"){
 }
 
 test("query",async ()=>{
-  let app = new App()
+  let response = await testRequest(new App())
+  .get("/query")
+  .query({
+    foo:"bar"
+  });
+   expect(response.body).toEqual({
+     foo:"bar"
+   })
   
-  try{
-    let port = await listen(app,3002)
-    let response = await request({
-      path:"/query?foo=bar",
-      port
-    })
-   // console.info(response.body)
-    expect(JSON.parse(response.body).foo).toBe("bar")
-  }catch(e){
-    throw e
-  }finally{
-    app.stopServer()
-  }
 })
